@@ -10,3 +10,8 @@
 4. List Produk
 5. Keuntungan
 6. Keluar
+
+### Running
+```
+python main.py
+```
