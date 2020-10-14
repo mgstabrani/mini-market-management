@@ -1,6 +1,13 @@
 # Inisialisasi Array dan Variabel
-produk = [["",0,0,0] for i in range(200)]
-
+produk = [["",0,0,0,0,0] for i in range(200)]
+'''
+produk[i][0] = Nama Produk
+produk[i][1] = Harga Beli Produk
+produk[i][2] = Harga Jual Produk
+produk[i][3] = Stok Produk
+produk[i][4] = Modal
+produk[i][5] = Jumlah Produk yang Dijual
+'''
 def Menu():
     print("\n=== MENU UTAMA ===")
     print("Pilihan Menu :")
@@ -19,16 +26,15 @@ def Menu():
         Penjualan()
     elif(n == 4):
         List_Harga()
-    # elif(n==5):
-    #     Keuntungan(m)
+    elif(n == 5):
+        Keuntungan()
     elif(n == 6):
         Keluar()
     else:
         error_message()
 
 def Keluar():
-    print()
-    print("Apakah anda yakin ingin keluar program?")
+    print("\nApakah anda yakin ingin keluar program?")
     print("Semua data anda akan terhapus")
     print("1. Keluar")
     print("2. Kembali ke menu")
@@ -39,12 +45,11 @@ def Keluar():
         Menu()
 
 def error_message():
-    print()
-    print("Error, kembali ke menu awal")
+    print("\nError, kembali ke menu awal")
     Menu()
 
 def Penambahan_Produk():
-    print()
+    print("\n=== Penambahan Produk ===")
     namaProduk = input("Nama produk yang ditambahkan: ")
     found = False
     i = 0
@@ -67,12 +72,13 @@ def Penambahan_Produk():
         produk[i][1]=int(input("Harga beli produk: "))
         produk[i][2]=int(input("Harga jual produk: "))
         produk[i][3]=int(input("Stok awal produk: "))
-        print("\nPenambahan produk berhasil")
-    print("Mengalihkan Anda ke menu awal")
+        produk[i][4]=produk[i][1] * produk[i][3]
+        print("Penambahan produk berhasil")
+    print("\nKembali ke menu utama...")
     Menu()
     
 def tampilDaftar():
-    print("\nList Produk")
+    print("\n=== Daftar Produk ===")
     print("Nama - Sisa Stok")
     n = 0
     while(produk[n][0] != ""):
@@ -82,46 +88,63 @@ def tampilDaftar():
 
 def List_Harga():
     tampilDaftar()
+    print("\nKembali ke menu utama...")
     Menu()
 
 def Penambahan_Stok():
-    print()
+    print("\n=== Penambahan Stok ===")
     tampilDaftar()
     nomorProduk = int(input("\nNomor produk yang akan ditambah: "))
     if (produk[nomorProduk-1][0] != ""):
-        produk[nomorProduk-1][3] += int(input("Banyak stok yang akan ditambah: "))
-        print("\nStok berhasil ditambahkan")
+        jumlahTambahStok = int(input("Banyak stok yang akan ditambah: "))
+        produk[nomorProduk-1][3] += jumlahTambahStok
+        produk[nomorProduk-1][4] += jumlahTambahStok * produk[nomorProduk-1][1]
+        print("Stok berhasil ditambahkan")
     else:
         print("Produk tidak ditemukan.")
-    print("Mengalihkan ke menu awal\n")
+    print("\nKembali ke menu utama...")
     Menu()
 
 def Penjualan():
+    print("\n=== Penjualan ===")
     tampilDaftar()
-    nomorProduk = int(input("Nomor produk yang terjual: "))
+    nomorProduk = int(input("\nNomor produk yang terjual: "))
     if (produk[nomorProduk-1][0] != ""):
-        produk[nomorProduk-1][3] -= int(input("Banyak stok yang terjual: "))
-        print("\nStok berhasil dijual")
+        jumlahProdukJual = int(input("Banyak stok yang terjual: "))
+        if (produk[nomorProduk-1][3] - jumlahProdukJual < 0):
+            print("Produk kurang")
+        else:
+            produk[nomorProduk-1][3] -= jumlahProdukJual
+            produk[nomorProduk-1][5] += jumlahProdukJual
+            print("Stok berhasil dijual")
     else:
         print("Produk tidak ditemukan.")
-    print("Mengalihkan ke menu awal")
+    print("\nKembali ke menu utama...")
     Menu()
 
-# def Keuntungan(n):
-#     print("Pilih metode perhitungan keuntungan! ")
-#     print("1. Keuntungan per produk")
-#     print("2. Keuntungan total")
-#     o = int(input("Masukkan pilihan(angka)! "))
-#     if(o==1):
-#             Keuntungan_per_produk(o)
-# ##    elif (o==2):
-# ##        Keuntungan_total(o)
-#     else:
-#         error_message(o)
-
-# def Keuntungan_per_produk(n):
-#     List_Harga1(n)
-
+def Keuntungan():
+    print("\n=== Keuntungan ===")
+    print("Pilih metode perhitungan keuntungan! ")
+    print("1. Keuntungan per produk")
+    print("2. Keuntungan total")
+    pilihan = int(input("Masukkan pilihan(angka): "))
+    if(pilihan == 1):
+        tampilDaftar()
+        nomorProduk = int(input("\nNomor produk yang ingin diketahui keuntungannya: "))
+        if(produk[nomorProduk-1][0] == ""):
+            print("Produk tidak ditemukan")
+        else:
+            print(produk[nomorProduk-1][0])
+            print("Keuntungan:", produk[nomorProduk-1][2]*produk[nomorProduk-1][5] - produk[nomorProduk-1][4])
+    elif(pilihan == 2):
+        totalKeuntungan = 0
+        for i in range(200):
+            totalKeuntungan += (produk[i][2]*produk[i][5] - produk[i][4])
+        print("\nTotal Keuntungan:", totalKeuntungan)
+    else:
+        error_message()
+    print("\nKembali ke menu utama...")
+    Menu()
 
 print("Selamat Datang di Program Manajemen Stok Minimarket!")
 Menu()
