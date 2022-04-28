@@ -53,7 +53,7 @@ def Penambahan_Produk():
     namaProduk = input("Nama produk yang ditambahkan: ")
     found = False
     i = 0
-    while(found == False and i < 200):
+    while(found is False and i < 200):
         if(namaProduk == produk[i][0]):
             found = True
         else:
@@ -63,7 +63,7 @@ def Penambahan_Produk():
     else:
         i = 0
         tulis = False
-        while(tulis == False and i < 200):
+        while(tulis is False and i < 200):
             if (produk[i][0] == ""):
                 tulis = True
             else:
