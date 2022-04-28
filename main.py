@@ -18,17 +18,17 @@ def Menu():
     print("5. Keuntungan")
     print("6. Keluar")
     n = int(input("Pilihan Menu (angka) : "))
-    if(n == 1):
+    if n == 1:
         Penambahan_Produk()
-    elif(n == 2):
+    elif n == 2:
         Penambahan_Stok()
-    elif(n==3):
+    elif n==3:
         Penjualan()
-    elif(n == 4):
+    elif n == 4:
         List_Harga()
-    elif(n == 5):
+    elif n == 5:
         Keuntungan()
-    elif(n == 6):
+    elif n == 6:
         Keluar()
     else:
         error_message()
@@ -39,7 +39,7 @@ def Keluar():
     print("1. Keluar")
     print("2. Kembali ke menu")
     pilihan = int(input())
-    if(pilihan == 1):
+    if pilihan == 1:
         exit
     else:
         Menu()
@@ -54,17 +54,17 @@ def Penambahan_Produk():
     found = False
     i = 0
     while(found is False and i < 200):
-        if(namaProduk == produk[i][0]):
+        if namaProduk == produk[i][0]:
             found = True
         else:
             i += 1
-    if(found):
+    if found:
         print("Produk sudah ada.")
     else:
         i = 0
         tulis = False
         while(tulis is False and i < 200):
-            if (produk[i][0] == ""):
+            if produk[i][0] == "":
                 tulis = True
             else:
                 i += 1
@@ -81,7 +81,7 @@ def tampilDaftar():
     print("\n=== Daftar Produk ===")
     print("Nama - Sisa Stok")
     n = 0
-    while(produk[n][0] != ""):
+    while produk[n][0] != "":
         n += 1
     for i in range(n):
         print(str(i+1) + ". " + produk[i][0] + " - " + str(produk[i][3]))
@@ -95,7 +95,7 @@ def Penambahan_Stok():
     print("\n=== Penambahan Stok ===")
     tampilDaftar()
     nomorProduk = int(input("\nNomor produk yang akan ditambah: "))
-    if (produk[nomorProduk-1][0] != ""):
+    if produk[nomorProduk-1][0] != "":
         jumlahTambahStok = int(input("Banyak stok yang akan ditambah: "))
         produk[nomorProduk-1][3] += jumlahTambahStok
         produk[nomorProduk-1][4] += jumlahTambahStok * produk[nomorProduk-1][1]
@@ -109,9 +109,9 @@ def Penjualan():
     print("\n=== Penjualan ===")
     tampilDaftar()
     nomorProduk = int(input("\nNomor produk yang terjual: "))
-    if (produk[nomorProduk-1][0] != ""):
+    if produk[nomorProduk-1][0] != "":
         jumlahProdukJual = int(input("Banyak stok yang terjual: "))
-        if (produk[nomorProduk-1][3] - jumlahProdukJual < 0):
+        if produk[nomorProduk-1][3] - jumlahProdukJual < 0:
             print("Produk kurang")
         else:
             produk[nomorProduk-1][3] -= jumlahProdukJual
@@ -128,15 +128,15 @@ def Keuntungan():
     print("1. Keuntungan per produk")
     print("2. Keuntungan total")
     pilihan = int(input("Masukkan pilihan(angka): "))
-    if(pilihan == 1):
+    if pilihan == 1:
         tampilDaftar()
         nomorProduk = int(input("\nNomor produk yang ingin diketahui keuntungannya: "))
-        if(produk[nomorProduk-1][0] == ""):
+        if produk[nomorProduk-1][0] == "":
             print("Produk tidak ditemukan")
         else:
             print(produk[nomorProduk-1][0])
             print("Keuntungan:", produk[nomorProduk-1][2]*produk[nomorProduk-1][5] - produk[nomorProduk-1][4])
-    elif(pilihan == 2):
+    elif pilihan == 2:
         totalKeuntungan = 0
         for i in range(200):
             totalKeuntungan += (produk[i][2]*produk[i][5] - produk[i][4])
