@@ -76,7 +76,7 @@ def Penambahan_Produk():
         print("Penambahan produk berhasil")
     print("\nKembali ke menu utama...")
     Menu()
-    
+
 def tampilDaftar():
     print("\n=== Daftar Produk ===")
     print("Nama - Sisa Stok")
